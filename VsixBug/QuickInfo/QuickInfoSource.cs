@@ -15,20 +15,28 @@ namespace QuickInfo.VsixBug
 {
     internal sealed class QuickInfoSource : IAsyncQuickInfoSource
     {
-        private readonly ITextBuffer _sourceBuffer;
-        public QuickInfoSource(ITextBuffer buffer)
+        private ITextBuffer _textBuffer;
+        public QuickInfoSource(ITextBuffer textBuffer)
         {
-            this._sourceBuffer = buffer;
+            this._textBuffer = textBuffer;
         }
+        // This is called on a background thread.
         public Task<QuickInfoItem> GetQuickInfoItemAsync(IAsyncQuickInfoSession session, CancellationToken cancellationToken)
         {
-            var snapshot = this._sourceBuffer.CurrentSnapshot;
-            var triggerPoint = (SnapshotPoint)session.GetTriggerPoint(snapshot);
-            var applicableToSpan = snapshot.CreateTrackingSpan(new SnapshotSpan(triggerPoint, triggerPoint), SpanTrackingMode.EdgeInclusive);
+            //MyTools.Output_INFO("QuickInfoSource:AugmentQuickInfoSession");
 
-            MyTools.Output_INFO("QuickInfoSource:AugmentQuickInfoSession: triggerPoint=" + triggerPoint.Position);
+            var triggerPoint = session.GetTriggerPoint(this._textBuffer.CurrentSnapshot);
+            if (triggerPoint != null)
+            {
+                var line = triggerPoint.Value.GetContainingLine();
+                var lineSpan = this._textBuffer.CurrentSnapshot.CreateTrackingSpan(line.Extent, SpanTrackingMode.EdgeInclusive);
 
-            return Task.FromResult<QuickInfoItem>(new QuickInfoItem(applicableToSpan, new BugWindow()));
+               // MyTools.Output_INFO("QuickInfoSource:AugmentQuickInfoSession: triggerPoint=" + lineSpan.GetText(this._textBuffer.CurrentSnapshot));
+
+                //return Task.FromResult(new QuickInfoItem(lineSpan, new BugWindow()));
+                return Task.FromResult(new QuickInfoItem(lineSpan, "Bla"));
+            }
+            return Task.FromResult<QuickInfoItem>(null);
         }
 
         public void Dispose()

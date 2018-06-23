@@ -28,8 +28,8 @@ namespace VsixBug
     /// To get loaded into VS, the package must be referred by &lt;Asset Type="Microsoft.VisualStudio.VsPackage" ...&gt; in .vsixmanifest file.
     /// </para>
     /// </remarks>
-    //[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    //[PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "0.0.9", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideAutoLoad(UIContextGuids.NoSolution)] //load this package once visual studio starts.
     [Guid(VsixBugPackage.PackageGuidString)]
