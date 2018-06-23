@@ -8,11 +8,12 @@ using VsixBug;
 namespace QuickInfo.VsixBug
 {
     [ContentType(VsixBugPackage.MyContentType)]
-    [Export(typeof(IQuickInfoSourceProvider))]
+    [Export(typeof(IAsyncQuickInfoSourceProvider))]
     [Name("VsixBugQuickInfoSourceProvider")]
-    internal sealed class QuickInfoSourceProvider : IQuickInfoSourceProvider
+    [Order(After = "default")]
+    internal sealed class QuickInfoSourceProvider : IAsyncQuickInfoSourceProvider
     {
-        public IQuickInfoSource TryCreateQuickInfoSource(ITextBuffer buffer)
+        public IAsyncQuickInfoSource TryCreateQuickInfoSource(ITextBuffer buffer)
         {
             MyTools.Output_INFO("QuickInfoSourceProvider:TryCreateQuickInfoSource");
             Func<QuickInfoSource> sc = delegate () {

@@ -11,21 +11,23 @@ namespace QuickInfo.VsixBug
     internal sealed class QuickInfoController : IIntellisenseController
     {
         private readonly IList<ITextBuffer> _subjectBuffers;
-        private readonly IQuickInfoBroker _quickInfoBroker;
+        private readonly IAsyncQuickInfoBroker _quickInfoBroker;
         private ITextView _textView;
 
         internal QuickInfoController(
             ITextView textView,
             IList<ITextBuffer> subjectBuffers,
-            IQuickInfoBroker quickInfoBroker)
+            IAsyncQuickInfoBroker quickInfoBroker)
         {
             MyTools.Output_INFO("QuickInfoController:constructor");
 
             this._textView = textView;
             this._subjectBuffers = subjectBuffers;
             this._quickInfoBroker = quickInfoBroker;
-
+            
             this._textView.MouseHover += (o, e) => {
+                //MyTools.Output_INFO("QuickInfoController:MouseHover");
+                
                 SnapshotPoint? point = GetMousePosition(new SnapshotPoint(this._textView.TextSnapshot, e.Position));
                 if (point.HasValue)
                 {
@@ -33,7 +35,7 @@ namespace QuickInfo.VsixBug
                     if (!this._quickInfoBroker.IsQuickInfoActive(this._textView))
                     {
                         MyTools.Output_INFO("QuickInfoController:MouseHover: position="+ point.Value.Position.ToString());
-                        this._quickInfoBroker.TriggerQuickInfo(this._textView, triggerPoint, false);
+                        this._quickInfoBroker.TriggerQuickInfoAsync(this._textView, triggerPoint);
                     }
                 }
             };

@@ -1,8 +1,4 @@
-﻿using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Text.Tagging;
-using Microsoft.VisualStudio.Utilities;
-using System;
+﻿using Microsoft.VisualStudio.Utilities;
 using System.ComponentModel.Composition;
 
 namespace VsixBug.QuickInfo
@@ -12,7 +8,7 @@ namespace VsixBug.QuickInfo
     internal sealed class MyContentTypeProvider
     {
         [Export]
-        [Name("xyzzy!")]
+        [Name(VsixBugPackage.MyContentType)]
         [BaseDefinition("code")]
         internal static ContentTypeDefinition XyzzyContentType = null;
 

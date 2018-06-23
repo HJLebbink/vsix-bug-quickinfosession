@@ -14,7 +14,7 @@ namespace QuickInfo.VsixBug
     internal sealed class QuickInfoControllerProvider : IIntellisenseControllerProvider
     {
         [Import]
-        private IQuickInfoBroker _quickInfoBroker = null;
+        private IAsyncQuickInfoBroker _quickInfoBroker = null;
 
         public IIntellisenseController TryCreateIntellisenseController(ITextView textView, IList<ITextBuffer> subjectBuffers)
         {
