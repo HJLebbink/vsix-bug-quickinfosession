@@ -14,8 +14,10 @@
     </Dependencies>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
     </Assets>
     <Prerequisites>
         <Prerequisite Id="Microsoft.Net.Component.4.7.SDK" Version="[15.6.27406.0,16.0)" DisplayName=".NET Framework 4.7 SDK" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.6.27309.0,16.0)" DisplayName="Visual Studio core editor" />
     </Prerequisites>
 </PackageManifest>

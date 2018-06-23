@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.Utilities;
 using System.ComponentModel.Composition;
 
-namespace VsixBug.Tagger
+namespace VsixBug
 {
     internal static class MyClassificationDefinition
     {

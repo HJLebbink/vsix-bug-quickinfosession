@@ -72,7 +72,7 @@ namespace VsixBug
 
             StringBuilder sb = new StringBuilder();
             sb.Append("INFO: Loaded VsixBug version " + typeof(VsixBugPackage).Assembly.GetName().Version + "\n");
-            sb.Append("INFO: Example code to pinpoint an bug described at https://github.com/HJLebbink/vsix-bug-quickinfosession \n");
+            sb.Append("INFO: Example code to pinpoint a bug described at https://github.com/HJLebbink/vsix-bug-quickinfosession \n");
             sb.Append("----------------------------------");
             MyTools.Output_INFO(sb.ToString());
         }

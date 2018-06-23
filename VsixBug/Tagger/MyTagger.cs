@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Tagging;
 
-namespace VsixBug.Tagger
+namespace VsixBug
 {
     internal sealed class MyTagger : ITagger<ClassificationTag>
     {

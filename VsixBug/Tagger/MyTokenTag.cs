@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.Text.Tagging;
 
-namespace VsixBug.Tagger
+namespace VsixBug
 {
     public class MyTokenTag : ITag
     {

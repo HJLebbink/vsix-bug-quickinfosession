@@ -1,5 +1,5 @@
 ﻿
-namespace VsixBug.Tagger
+namespace VsixBug
 {
     public enum MyTokenType
     {

@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 
-namespace VsixBug.Tagger
+namespace VsixBug
 {
     [Export(typeof(EditorFormatDefinition))] // export as EditorFormatDefinition otherwise the syntax coloring does not work
     [ClassificationType(ClassificationTypeNames = MyClassificationDefinition.ClassificationTypeNames.Xyzzy)]

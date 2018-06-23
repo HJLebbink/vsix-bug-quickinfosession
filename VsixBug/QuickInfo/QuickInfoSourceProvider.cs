@@ -14,8 +14,8 @@ namespace QuickInfo.VsixBug
     {
         public IQuickInfoSource TryCreateQuickInfoSource(ITextBuffer buffer)
         {
+            MyTools.Output_INFO("QuickInfoSourceProvider:TryCreateQuickInfoSource");
             Func<QuickInfoSource> sc = delegate () {
-                MyTools.Output_INFO("QuickInfoSourceProvider:TryCreateQuickInfoSource");
                 return new QuickInfoSource(buffer);
             };
             return buffer.Properties.GetOrCreateSingletonProperty(sc);
