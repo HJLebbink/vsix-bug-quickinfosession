@@ -3,9 +3,6 @@ using System.Windows.Controls;
 
 namespace VsixBug.QuickInfo
 {
-    /// <summary>
-    /// Interaction logic for BugWindow.xaml
-    /// </summary>
     public partial class BugWindow : UserControl
     {
         public BugWindow()

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
+using VsixBug;
 
 namespace QuickInfo.VsixBug
 {
@@ -18,9 +19,12 @@ namespace QuickInfo.VsixBug
             IList<ITextBuffer> subjectBuffers,
             IQuickInfoBroker quickInfoBroker)
         {
+            MyTools.Output_INFO("QuickInfoController:constructor");
+
             this._textView = textView;
             this._subjectBuffers = subjectBuffers;
             this._quickInfoBroker = quickInfoBroker;
+
             this._textView.MouseHover += (o, e) => {
                 SnapshotPoint? point = GetMousePosition(new SnapshotPoint(this._textView.TextSnapshot, e.Position));
                 if (point.HasValue)
@@ -28,6 +32,7 @@ namespace QuickInfo.VsixBug
                     ITrackingPoint triggerPoint = point.Value.Snapshot.CreateTrackingPoint(point.Value.Position, PointTrackingMode.Positive);
                     if (!this._quickInfoBroker.IsQuickInfoActive(this._textView))
                     {
+                        MyTools.Output_INFO("QuickInfoController:MouseHover: position="+ point.Value.Position.ToString());
                         this._quickInfoBroker.TriggerQuickInfo(this._textView, triggerPoint, false);
                     }
                 }
@@ -36,17 +41,17 @@ namespace QuickInfo.VsixBug
 
         public void ConnectSubjectBuffer(ITextBuffer subjectBuffer)
         {
-            throw new NotImplementedException();
+            MyTools.Output_INFO("QuickInfoController:ConnectSubjectBuffer");
         }
 
         public void Detach(ITextView textView)
         {
-            throw new NotImplementedException();
+            MyTools.Output_INFO("QuickInfoController:Detach");
         }
 
         public void DisconnectSubjectBuffer(ITextBuffer subjectBuffer)
         {
-            throw new NotImplementedException();
+            MyTools.Output_INFO("QuickInfoController:DisconnectSubjectBuffer");
         }
 
         private SnapshotPoint? GetMousePosition(SnapshotPoint topPosition)

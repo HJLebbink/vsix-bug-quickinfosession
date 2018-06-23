@@ -178,14 +178,7 @@
     <Compile Include="QuickInfo\QuickInfoSource.cs" />
     <Compile Include="QuickInfo\QuickInfoSourceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tagger\MasmTokenTagger.cs" />
-    <Compile Include="Tagger\MyClassificationDefinition.cs" />
-    <Compile Include="Tagger\MyClassificationFormat.cs" />
-    <Compile Include="Tagger\MyTagger.cs" />
-    <Compile Include="Tagger\MyTaggerProvider.cs" />
-    <Compile Include="Tagger\MyTokenTag.cs" />
-    <Compile Include="Tagger\MyTokenTaggerProvider.cs" />
-    <Compile Include="Tagger\MyTokenType.cs" />
+    <Compile Include="QuickInfo\MyContentTypeProvider.cs" />
     <Compile Include="VsixBugPackage.cs" />
   </ItemGroup>
   <ItemGroup>

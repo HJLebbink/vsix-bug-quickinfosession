@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
+using VsixBug;
 using VsixBug.QuickInfo;
 
 namespace QuickInfo.VsixBug
@@ -19,12 +20,15 @@ namespace QuickInfo.VsixBug
             var snapshot = this._sourceBuffer.CurrentSnapshot;
             var triggerPoint = (SnapshotPoint)session.GetTriggerPoint(snapshot);
             applicableToSpan = snapshot.CreateTrackingSpan(new SnapshotSpan(triggerPoint, triggerPoint), SpanTrackingMode.EdgeInclusive);
+
+            MyTools.Output_INFO("QuickInfoSource:AugmentQuickInfoSession: triggerPoint="+triggerPoint.Position);
+
             quickInfoContent.Add(new BugWindow());
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            MyTools.Output_INFO("QuickInfoSource:Dispose");
         }
     }
 }
