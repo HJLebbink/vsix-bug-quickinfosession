@@ -37,10 +37,7 @@ namespace VsixBug.Tagger
         public IEnumerable<ITagSpan<ClassificationTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
             {
-                if (spans.Count == 0)
-                {  //there is no content in the buffer
-                    yield break;
-                }
+                if (spans.Count == 0) yield break;
 
                 foreach (IMappingTagSpan<MyTokenTag> tagSpan in this._aggregator.GetTags(spans))
                 {

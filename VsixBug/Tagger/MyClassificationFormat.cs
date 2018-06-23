@@ -14,9 +14,10 @@ namespace VsixBug.Tagger
         public XyzzyWord()
         {
             this.DisplayName = "VsixBug - XyzzyWord"; //human readable version of the name found in Tools>Options>Environment>Fonts and Colors>Text Editor
-
             var drawingColor = System.Drawing.Color.Red;
             this.ForegroundColor = System.Windows.Media.Color.FromArgb(drawingColor.A, drawingColor.R, drawingColor.G, drawingColor.B);
+
+            MyTools.Output_INFO("XyzzyWord:constructor");
         }
     }
 }

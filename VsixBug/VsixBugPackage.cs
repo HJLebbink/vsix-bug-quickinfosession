@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -67,7 +68,13 @@ namespace VsixBug
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
-            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+            //await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("INFO: Loaded VsixBug version " + typeof(VsixBugPackage).Assembly.GetName().Version + "\n");
+            sb.Append("INFO: Example code to pinpoint an bug described at https://github.com/HJLebbink/vsix-bug-quickinfosession \n");
+            sb.Append("----------------------------------");
+            MyTools.Output_INFO(sb.ToString());
         }
 
         #endregion

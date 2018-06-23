@@ -8,7 +8,7 @@ namespace VsixBug.Tagger
     {
         internal static class ClassificationTypeNames
         {
-            public const string Xyzzy = "xyzzy-D74860FA-F0BC-4441-9D76-DF4ECB19CF71";
+            public const string Xyzzy = "xyzzy134-84d2-44b4-a750-8a4a674aa12f";
         }
 
         [Export(typeof(ClassificationTypeDefinition))]

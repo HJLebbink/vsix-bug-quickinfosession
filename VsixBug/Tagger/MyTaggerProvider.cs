@@ -34,6 +34,7 @@ namespace VsixBug.Tagger
         {
             Func<ITagger<T>> sc = delegate ()
             {
+                MyTools.Output_INFO("MyTaggerProvider:CreateTagger");
                 return new MyTagger(buffer, this._aggregatorFactory.CreateTagAggregator<MyTokenTag>(buffer), this._classificationTypeRegistry) as ITagger<T>;
             };
             return buffer.Properties.GetOrCreateSingletonProperty(sc);
