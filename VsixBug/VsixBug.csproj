@@ -189,7 +189,6 @@
     <None Include="app.config" />
     <None Include="Key.snk" />
     <None Include="packages.config" />
-    <None Include="QuickInfo\WpfNagivableTextRunViewElementFactory.fs" />
     <None Include="Resources\data.xyz">
       <SubType>Component</SubType>
     </None>
