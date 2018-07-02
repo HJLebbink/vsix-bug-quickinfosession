@@ -11,8 +11,8 @@ This minimal extension creates a filetype with extension .xyz. If you run (debug
 
 I you have any questions, don't hesitate to ask me.
 
-
-## this project has also been used to describe other bugs:
+## Previous use of this Project
+This project has also been used to describe other bugs, but these bugs seem resolved in VS 15.7.4
 
 1. See SO [here](https://stackoverflow.com/questions/46793168/quickinfosession-is-dismissed-prematurely-when-using-usercontrols-in-quickinfoco?noredirect=1#comment88979250_46793168)
 2. MSDN forum [here](https://social.msdn.microsoft.com/Forums/vstudio/en-US/7084cf4c-639a-4aaf-9027-b71cdad27acd/tooltip-with-quickinfosession-with-a-usercontrol-instead-of-a-string?forum=vsx#7084cf4c-639a-4aaf-9027-b71cdad27acd)
