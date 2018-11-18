@@ -1,12 +1,8 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VsixBug
 {
@@ -28,7 +24,7 @@ namespace VsixBug
             }
         }
 
-        /// <summary>Output message to the AsmDude window</summary>
+        /// <summary>Output message to the Output window</summary>
         public static void Output_INFO(string msg)
         {
             IVsOutputWindowPane outputPane = GetOutputPane();
