@@ -1,17 +1,23 @@
-﻿using System.Windows.Controls;
+﻿using Microsoft.VisualStudio.Language.Intellisense;
+using System.Windows.Controls;
 
 namespace VsixBug.QuickInfo
 {
     public partial class BugWindow : UserControl
     {
-        public BugWindow()
+        private readonly IAsyncQuickInfoSession _session;
+
+        public BugWindow(IAsyncQuickInfoSession session)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             MyTools.Output_INFO("BugWindow:constructor");
+
+            this._session = session;
 
             this.MainWindow.MouseLeftButtonDown += (o, i) =>
             {
                 MyTools.Output_INFO("BugWindow:MainWindow.MouseLeftButtonDown");
+
                 //i.Handled = true; // dont let the mouse event from inside this window bubble up to VS
             };
 
@@ -30,7 +36,9 @@ namespace VsixBug.QuickInfo
             this.MyExpander.GotMouseCapture += (o, i) =>
             {
                 MyTools.Output_INFO("BugWindow:GotMouseCapture_Click");
-                i.Handled = true;
+
+                IAsyncQuickInfoSession x = this._session;
+                //i.Handled = true;
             };
         }
     }

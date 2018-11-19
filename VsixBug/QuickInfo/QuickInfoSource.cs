@@ -22,12 +22,12 @@ namespace QuickInfo.VsixBug
             this._textBuffer = textBuffer;
         }
 
-        private QuickInfoItem RunOnUI(ITrackingSpan lineSpan)
+        private QuickInfoItem RunOnUI(IAsyncQuickInfoSession session, ITrackingSpan lineSpan)
         {
             MyTools.Output_INFO("QuickInfoSource:RunOnUI");
             var elem = new ContainerElement(
                 ContainerElementStyle.Wrapped,
-                new BugWindow()
+                new BugWindow(session)
             );
             return new QuickInfoItem(lineSpan, elem);
         }
@@ -36,6 +36,7 @@ namespace QuickInfo.VsixBug
         public Task<QuickInfoItem> GetQuickInfoItemAsync(IAsyncQuickInfoSession session, CancellationToken cancellationToken)
         {
             //MyTools.Output_INFO("QuickInfoSource:GetQuickInfoItemAsync"); logging here bricks the app
+            session.StateChanged += this.Session_StateChanged;
 
             var triggerPoint = session.GetTriggerPoint(this._textBuffer.CurrentSnapshot);
             if (triggerPoint != null)
@@ -43,9 +44,14 @@ namespace QuickInfo.VsixBug
                 var line = triggerPoint.Value.GetContainingLine();
                 var lineSpan = this._textBuffer.CurrentSnapshot.CreateTrackingSpan(line.Extent, SpanTrackingMode.EdgeInclusive);
 
-                return Task<QuickInfoItem>.Factory.StartNew(() => RunOnUI(lineSpan), CancellationToken.None, TaskCreationOptions.None, this._uiScheduler);
+                return Task<QuickInfoItem>.Factory.StartNew(() => this.RunOnUI(session, lineSpan), CancellationToken.None, TaskCreationOptions.None, this._uiScheduler);
             }
             return Task.FromResult<QuickInfoItem>(null);
+        }
+
+        private void Session_StateChanged(object sender, QuickInfoSessionStateChangedEventArgs e)
+        {
+            MyTools.Output_INFO("QuickInfoSource:Session_StateChanged: sender="+sender.ToString() + "; e="+e.ToString());
         }
 
         public void Dispose()

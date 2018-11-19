@@ -73,6 +73,8 @@
     <Compile Include="QuickInfo\BugWindow.xaml.cs">
       <DependentUpon>BugWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="QuickInfo\QuickInfoController.cs" />
+    <Compile Include="QuickInfo\QuickInfoControllerProvider.cs" />
     <Compile Include="QuickInfo\QuickInfoSource.cs" />
     <Compile Include="QuickInfo\QuickInfoSourceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Language">
+      <Version>15.8.525</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Language.Intellisense">
       <Version>15.8.525</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Shell.15.0">
