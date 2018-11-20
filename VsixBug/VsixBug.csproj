@@ -106,10 +106,13 @@
       <Version>15.8.525</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Shell.15.0">
-      <Version>15.6.27413</Version>
+      <Version>15.8.28010</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Shell.Framework">
       <Version>15.8.28010</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Threading">
+      <Version>15.8.168</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml">
       <Version>4.0.0.1</Version>
