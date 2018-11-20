@@ -99,6 +99,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.CoreUtility">
+      <Version>15.8.525</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.ImageCatalog">
+      <Version>15.8.28010</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Language">
       <Version>15.8.525</Version>
     </PackageReference>
@@ -106,9 +112,6 @@
       <Version>15.8.525</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Shell.15.0">
-      <Version>15.8.28010</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Shell.Framework">
       <Version>15.8.28010</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Threading">
