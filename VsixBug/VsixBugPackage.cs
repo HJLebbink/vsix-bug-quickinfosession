@@ -29,16 +29,11 @@ namespace VsixBug
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    //[PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "0.0.9", IconResourceID = 400)] // Info on this package for Help/About
-    [ProvideAutoLoad(UIContextGuids.NoSolution)] //load this package once visual studio starts.
     [Guid(VsixBugPackage.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class VsixBugPackage : AsyncPackage
     {
-        /// <summary>
-        /// VSPackage1 GUID string.
-        /// </summary>
         public const string PackageGuidString = "ec494134-84d2-44b4-a750-8a4a674aa12f";
         internal const string MyContentType = "xyzzy!";
 
@@ -52,7 +47,13 @@ namespace VsixBug
             // not sited yet inside Visual Studio environment. The place to do all the other
             // initialization is the Initialize method.
 
-            Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "=========================================\nINFO: VSPackage1: Entering constructor"));
+            Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "=========================================\nINFO: VsixBugPackage: Entering constructor"));
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("INFO: Loaded VsixBug version " + typeof(VsixBugPackage).Assembly.GetName().Version + "\n");
+            sb.Append("INFO: Example code to pinpoint a bug described at https://github.com/HJLebbink/vsix-bug-quickinfosession \n");
+            sb.Append("----------------------------------");
+            MyTools.Output_INFO(sb.ToString());
         }
 
         #region Package Members
@@ -64,17 +65,9 @@ namespace VsixBug
         /// <param name="cancellationToken">A cancellation token to monitor for initialization cancellation, which can occur when VS is shutting down.</param>
         /// <param name="progress">A provider for progress updates.</param>
         /// <returns>A task representing the async work of package initialization, or an already completed task if there is none. Do not return null from this method.</returns>
-        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
+        protected override async System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("INFO: Loaded VsixBug version " + typeof(VsixBugPackage).Assembly.GetName().Version + "\n");
-            sb.Append("INFO: Example code to pinpoint a bug described at https://github.com/HJLebbink/vsix-bug-quickinfosession \n");
-            sb.Append("----------------------------------");
-            MyTools.Output_INFO(sb.ToString());
-
-            // When initialized asynchronously, the current thread may be a background thread at this point.
-            // Do any initialization that requires the UI thread after switching to the UI thread.
-            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+            await base.InitializeAsync(cancellationToken, progress);
         }
 
         #endregion
