@@ -25,11 +25,7 @@ namespace QuickInfo.VsixBug
         private QuickInfoItem RunOnUI(IAsyncQuickInfoSession session, ITrackingSpan lineSpan)
         {
             MyTools.Output_INFO("QuickInfoSource:RunOnUI");
-            var elem = new ContainerElement(
-                ContainerElementStyle.Wrapped,
-                new BugWindow(session)
-            );
-            return new QuickInfoItem(lineSpan, elem);
+            return new QuickInfoItem(lineSpan, new BugWindow(session));
         }
 
         // This is called on a background thread.
