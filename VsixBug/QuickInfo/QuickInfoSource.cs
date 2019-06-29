@@ -14,8 +14,8 @@ using VsixBug.QuickInfo;
 
 namespace QuickInfo.VsixBug
 {
-    internal sealed class QuickInfoSource : IAsyncQuickInfoSource //XYZZY NEW
-    //internal sealed class QuickInfoSource : IQuickInfoSource //XYZZY OLD
+    //internal sealed class QuickInfoSource : IAsyncQuickInfoSource //XYZZY NEW
+    internal sealed class QuickInfoSource : IQuickInfoSource //XYZZY OLD
     {
         private readonly TaskScheduler _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
         private readonly ITextBuffer _textBuffer;
@@ -29,12 +29,6 @@ namespace QuickInfo.VsixBug
         {
             MyTools.Output_INFO(string.Format("{0}:RunOnUI (IAsyncQuickInfoSession)", this.ToString()));
             return new QuickInfoItem(lineSpan, new BugWindow(() => { try { _ = session.DismissAsync(); } catch { } }));
-        }
-
-        private QuickInfoItem RunOnUI(IQuickInfoSession session, ITrackingSpan lineSpan)
-        {
-            MyTools.Output_INFO(string.Format("{0}:RunOnUI (IQuickInfoSession)", this.ToString()));
-            return new QuickInfoItem(lineSpan, new BugWindow(() => { try { session.Dismiss(); } catch { } }));
         }
 
         // This is called on a background thread.
@@ -62,8 +56,7 @@ namespace QuickInfo.VsixBug
             {
                 var line = triggerPoint.Value.GetContainingLine();
                 applicableToSpan = this._textBuffer.CurrentSnapshot.CreateTrackingSpan(line.Extent, SpanTrackingMode.EdgeInclusive);
-
-                this.RunOnUI(session, applicableToSpan);
+                quickInfoContent.Add(new BugWindow(() => { try { session.Dismiss(); } catch { } }));
             } 
         }
 

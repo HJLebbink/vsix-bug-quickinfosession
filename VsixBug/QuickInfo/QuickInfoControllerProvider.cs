@@ -14,8 +14,8 @@ namespace VsixBug.QuickInfo
     internal sealed class QuickInfoControllerProvider : IIntellisenseControllerProvider
     {
         [Import]
-        private readonly IAsyncQuickInfoBroker _quickInfoBroker = null; //XYZZY BEW
-        //private readonly IQuickInfoBroker _quickInfoBroker = null;  //XYZZY OLD
+        //private readonly IAsyncQuickInfoBroker _quickInfoBroker = null; //XYZZY NEW
+        private readonly IQuickInfoBroker _quickInfoBroker = null;  //XYZZY OLD
 
         public IIntellisenseController TryCreateIntellisenseController(ITextView textView, IList<ITextBuffer> subjectBuffers)
         {
