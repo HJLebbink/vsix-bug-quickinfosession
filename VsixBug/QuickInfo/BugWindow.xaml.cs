@@ -1,62 +1,41 @@
 ﻿using Microsoft.VisualStudio.Language.Intellisense;
+using System;
 
 namespace VsixBug.QuickInfo
 {
     public partial class BugWindow : IInteractiveQuickInfoContent
     {
-        private readonly IAsyncQuickInfoSession _session;
+        private readonly Action _closeAction;
 
-        public BugWindow(IAsyncQuickInfoSession session)
+        public BugWindow(Action closeAction)
         {
             this.InitializeComponent();
-            MyTools.Output_INFO("BugWindow:constructor");
+            MyTools.Output_INFO(string.Format("{0}:constructor", this.ToString()));
 
-            this._session = session;
+            this._closeAction = closeAction;
 
             this.MainWindow.MouseLeftButtonDown += (o, i) =>
             {
-                MyTools.Output_INFO("BugWindow:MainWindow.MouseLeftButtonDown");
+                MyTools.Output_INFO(string.Format("{0}:MouseLeftButtonDown", this.ToString()));
                 //i.Handled = true; // dont let the mouse event from inside this window bubble up to VS
             };
 
             this.MainWindow.PreviewMouseLeftButtonDown += (o, i) =>
             {
-                MyTools.Output_INFO("BugWindow:MainWindow.PreviewMouseLeftButtonDown");
+                MyTools.Output_INFO(string.Format("{0}:PreviewMouseLeftButtonDown", this.ToString()));
                 //i.Handled = true; // if true then no event is able to bubble to the gui
             };
 
             this.MyExpander.MouseLeftButtonUp += (o, i) =>
             {
-                MyTools.Output_INFO("BugWindow:MyExpander.MouseLeftButtonUp");
+                MyTools.Output_INFO(string.Format("{0}:MouseLeftButtonUp", this.ToString()));
                 //i.Handled = true;
             };
 
             this.MyExpander.GotMouseCapture += (o, i) =>
             {
-                MyTools.Output_INFO("BugWindow:GotMouseCapture_Click");
-
-                foreach (var content2 in this._session.Content)
-                {
-                    MyTools.Output_INFO("BugWindow:GotMouseCapture_Click: "+ content2.GetType());
-
-                    var io = content2 as IInteractiveQuickInfoContent;
-                    if (io == null)
-                    {
-                        MyTools.Output_INFO("BugWindow:not interactive content");
-                        continue;
-                    }
-                    else
-                    {
-                        MyTools.Output_INFO("BugWindow:found interactive content");
-
-                    }
-                    if (io.KeepQuickInfoOpen || io.IsMouseOverAggregated)
-                    {
-                        MyTools.Output_INFO("BugWindow:found interactive content and it needs to be kept open");
-                        return;
-                    }
-                }
-                //i.Handled = true;
+                MyTools.Output_INFO(string.Format("{0}:GotMouseCapture", this.ToString()));
+               //i.Handled = true;
             };
         }
 

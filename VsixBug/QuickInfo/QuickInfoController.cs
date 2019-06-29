@@ -10,13 +10,16 @@ namespace VsixBug.QuickInfo
     internal sealed class QuickInfoController : IIntellisenseController
     {
         private readonly IList<ITextBuffer> _subjectBuffers;
-        private readonly IAsyncQuickInfoBroker _quickInfoBroker;
-        private readonly ITextView _textView;
+
+        private readonly IAsyncQuickInfoBroker _quickInfoBroker; //XYZZY NEW
+        //private readonly IQuickInfoBroker _quickInfoBroker; //XYZZY OLD
+        private ITextView _textView;
 
         internal QuickInfoController(
             ITextView textView,
             IList<ITextBuffer> subjectBuffers,
-            IAsyncQuickInfoBroker quickInfoBroker)
+            IAsyncQuickInfoBroker quickInfoBroker) //XYZZY NEW
+            //IQuickInfoBroker quickInfoBroker) //XYZZY OLD
         {
             this._textView = textView ?? throw new ArgumentNullException(nameof(textView));
             this._subjectBuffers = subjectBuffers ?? throw new ArgumentNullException(nameof(subjectBuffers));
@@ -26,17 +29,22 @@ namespace VsixBug.QuickInfo
 
         public void ConnectSubjectBuffer(ITextBuffer subjectBuffer)
         {
-            MyTools.Output_INFO("QuickInfoController:ConnectSubjectBuffer");
+            MyTools.Output_INFO(string.Format("{0}:ConnectSubjectBuffer", this.ToString()));
         }
 
         public void Detach(ITextView textView)
         {
-            MyTools.Output_INFO("QuickInfoController:Detach");
+            MyTools.Output_INFO(string.Format("{0}:Detach", this.ToString()));
+            if (this._textView == textView)
+            {
+                this._textView.MouseHover -= this.OnTextViewMouseHover;
+                this._textView = null;
+            }
         }
 
         public void DisconnectSubjectBuffer(ITextBuffer subjectBuffer)
         {
-            MyTools.Output_INFO("QuickInfoController:DisconnectSubjectBuffer");
+            MyTools.Output_INFO(string.Format("{0}:DisconnectSubjectBuffer", this.ToString()));
         }
 
 
@@ -54,29 +62,31 @@ namespace VsixBug.QuickInfo
 
                 if (this._quickInfoBroker.IsQuickInfoActive(this._textView))
                 {
-                    IAsyncQuickInfoSession current_Session = this._quickInfoBroker.GetSession(this._textView);
+                    IAsyncQuickInfoSession current_Session = this._quickInfoBroker.GetSession(this._textView); //XYZZY NEW
+                    //IQuickInfoSession current_Session = this._quickInfoBroker.GetSessions(this._textView)[0]; //XYZZY OLD
 
                     var span = current_Session.ApplicableToSpan;
                     if ((span!=null) && span.GetSpan(this._textView.TextSnapshot).IntersectsWith(new Span(pos, 0)))
                     {
-                        MyTools.Output_INFO("QuickInfoController:OnTextViewMouseHover: A: quickInfoBroker is already active: intersects!");
+                        MyTools.Output_INFO(string.Format("{0}::OnTextViewMouseHover: A: quickInfoBroker is already active: intersects!", this.ToString()));
                     }
                     else
                     {
                         MyTools.Output_INFO("QuickInfoController:OnTextViewMouseHover: B: quickInfoBroker is already active, but we need a new session at " + pos);
-                        _ = current_Session.DismissAsync();
-                        _ = this._quickInfoBroker.TriggerQuickInfoAsync(this._textView, triggerPoint, QuickInfoSessionOptions.None); //BUG here QuickInfoSessionOptions.None behaves as TrackMouse
+                        _ = current_Session.DismissAsync(); //XYZZY NEW
+                        _ = this._quickInfoBroker.TriggerQuickInfoAsync(this._textView, triggerPoint, QuickInfoSessionOptions.None); //BUG here QuickInfoSessionOptions.None behaves as TrackMouse  //XYZZY NEW
+                        //this._quickInfoBroker.TriggerQuickInfo(this._textView, triggerPoint, false);  //XYZZY OLD
                     }
                 }
                 else
                 {
-                    MyTools.Output_INFO("QuickInfoController:OnTextViewMouseHover: C: quickInfoBroker was not active, create a new session for triggerPoint " + pos);
-                    _ = this._quickInfoBroker.TriggerQuickInfoAsync(this._textView, triggerPoint, QuickInfoSessionOptions.None);
+                    MyTools.Output_INFO(string.Format("{0}::OnTextViewMouseHover: C: quickInfoBroker was not active, create a new session for triggerPoint {1}", this.ToString(), pos));
+                    _ = this._quickInfoBroker.TriggerQuickInfoAsync(this._textView, triggerPoint, QuickInfoSessionOptions.None); //XYZZY NEW
                 }
             }
             else
             {
-                MyTools.Output_INFO("QuickInfoController:OnTextViewMouseHover: point has not value");
+                MyTools.Output_INFO(string.Format("{0}:OnTextViewMouseHover: point has not value", this.ToString()));
             }
         }
 
