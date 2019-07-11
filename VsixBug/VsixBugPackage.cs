@@ -6,8 +6,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Task = System.Threading.Tasks.Task;
 
 namespace VsixBug
 {
@@ -30,7 +28,7 @@ namespace VsixBug
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", "0.0.9", IconResourceID = 400)] // Info on this package for Help/About
-    [Guid(VsixBugPackage.PackageGuidString)]
+    [Guid(PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class VsixBugPackage : AsyncPackage
     {

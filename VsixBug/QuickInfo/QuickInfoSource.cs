@@ -28,14 +28,13 @@ namespace QuickInfo.VsixBug
         private QuickInfoItem RunOnUI(IAsyncQuickInfoSession session, ITrackingSpan lineSpan)
         {
             MyTools.Output_INFO(string.Format("{0}:RunOnUI (IAsyncQuickInfoSession)", this.ToString()));
-            return new QuickInfoItem(lineSpan, new BugWindow(() => { try { _ = session.DismissAsync(); } catch { } }));
+            return new QuickInfoItem(lineSpan, new BugWindow());
         }
 
         // This is called on a background thread.
         public Task<QuickInfoItem> GetQuickInfoItemAsync(IAsyncQuickInfoSession session, CancellationToken _) //XYZZY NEW
         {
             //MyTools.Output_INFO(string.Format("{0}:GetQuickInfoItemAsync", this.ToString())); logging here bricks the app
-            session.StateChanged += this.Session_StateChanged;
 
             var triggerPoint = session.GetTriggerPoint(this._textBuffer.CurrentSnapshot);
             if (triggerPoint != null)
@@ -50,19 +49,15 @@ namespace QuickInfo.VsixBug
 
         public void AugmentQuickInfoSession(IQuickInfoSession session, IList<object> quickInfoContent, out ITrackingSpan applicableToSpan) //XYZZY OLD
         {
+            MyTools.Output_INFO(string.Format("{0}:AugmentQuickInfoSession", this.ToString()));
             applicableToSpan = null;
             var triggerPoint = session.GetTriggerPoint(this._textBuffer.CurrentSnapshot);
             if (triggerPoint != null)
             {
                 var line = triggerPoint.Value.GetContainingLine();
                 applicableToSpan = this._textBuffer.CurrentSnapshot.CreateTrackingSpan(line.Extent, SpanTrackingMode.EdgeInclusive);
-                quickInfoContent.Add(new BugWindow(() => { try { session.Dismiss(); } catch { } }));
+                quickInfoContent.Add(new BugWindow());
             } 
-        }
-
-        private void Session_StateChanged(object sender, QuickInfoSessionStateChangedEventArgs e)
-        {
-            MyTools.Output_INFO(string.Format("{0}:Session_StateChanged; sender={1}; e={2}", this.ToString(), sender.ToString(), e.ToString()));
         }
 
         public void Dispose()
