@@ -8,7 +8,7 @@ namespace VsixBug.QuickInfo
         {
             this.InitializeComponent();
             MyTools.Output_INFO(string.Format("{0}:constructor", this.ToString()));
-
+            /*
             this.MyExpander.MouseLeftButtonDown += (o, i) =>
             {
                 MyTools.Output_INFO(string.Format("{0}:MouseLeftButtonDown", this.ToString()));
@@ -32,6 +32,7 @@ namespace VsixBug.QuickInfo
                 MyTools.Output_INFO(string.Format("{0}:GotMouseCapture", this.ToString()));
                //i.Handled = true;
             };
+            */
         }
 
         public bool KeepQuickInfoOpen => this.IsMouseOverAggregated || this.IsKeyboardFocusWithin || this.IsKeyboardFocused || this.IsFocused;
