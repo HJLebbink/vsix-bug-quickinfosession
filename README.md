@@ -1,5 +1,5 @@
 # vsix-bug-quickinfosession
-Simple VSIX project for VS2015/2017 that sports a bug.
+Simple VSIX project for VS2015/2017/2019 that sports an annoying bug that stall some important features in [AsmDude](https://github.com/HJLebbink/asm-dude) for almost 2 years.
 
 Bug behaviour when using QuickInfo Tooltips:
 
@@ -7,7 +7,7 @@ Bug behaviour when using QuickInfo Tooltips:
 
 See Issue [here](https://github.com/Microsoft/vs-editor-api/issues/11).
 
-This minimal extension creates a filetype with extension .xyz. If you run (debug) this extension and open a (text) file with extension .xyz, hovering the mouse over any word will show a tooltips with the described bug. I only tested this extension with VS2017 15.7.4. For convenience a dedicated output window will be opened with some logging from this extension.
+This minimal extension creates a filetype with extension .xyz. If you run (debug) this extension and open a (text) file with extension .xyz, hovering the mouse over any word will show a tooltips with the described bug. I tested this extension with VS2017 15.7.4 and VS2019 16.2.0. For convenience a dedicated output window will be opened with some logging from this extension.
 
 I you have any questions, don't hesitate to ask me.
 
