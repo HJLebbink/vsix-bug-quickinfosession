@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" x:Name="MainWindow"
+             UseLayoutRounding="True"
+             
              MinWidth="200"
              MinHeight="20"
              Focusable="True">
-    <!--<Expander x:Name="MyExpander" IsExpanded="False">Bla</Expander>-->
-
+    <Expander x:Name="MyExpander" IsExpanded="False">Bla</Expander>
+    <!--
     <UserControl.Resources>
         <Style x:Key="ExpanderHeader" TargetType="{x:Type TextBlock}">
             <Setter Property="Height" Value="22" />
@@ -24,4 +26,5 @@
         </Expander>
         <TextBlock Text="I'm filling in for the default header. You'll like me better anyway." Style="{StaticResource ResourceKey=ExpanderHeader}"/>
     </Grid>
+    -->
 </UserControl>

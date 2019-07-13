@@ -14,8 +14,8 @@ using VsixBug.QuickInfo;
 
 namespace QuickInfo.VsixBug
 {
-    //internal sealed class QuickInfoSource : IAsyncQuickInfoSource //XYZZY NEW
-    internal sealed class QuickInfoSource : IQuickInfoSource //XYZZY OLD
+    internal sealed class QuickInfoSource : IAsyncQuickInfoSource //XYZZY NEW
+    //internal sealed class QuickInfoSource : IQuickInfoSource //XYZZY OLD
     {
         private readonly TaskScheduler _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
         private readonly ITextBuffer _textBuffer;
@@ -25,24 +25,25 @@ namespace QuickInfo.VsixBug
             this._textBuffer = textBuffer ?? throw new ArgumentNullException(nameof(textBuffer));
         }
 
-        private QuickInfoItem RunOnUI(IAsyncQuickInfoSession session, ITrackingSpan lineSpan)
+        private QuickInfoItem RunOnUI(ITrackingSpan applicableToSpan)
         {
             MyTools.Output_INFO(string.Format("{0}:RunOnUI (IAsyncQuickInfoSession)", this.ToString()));
-            return new QuickInfoItem(lineSpan, new BugWindow());
+            return new QuickInfoItem(applicableToSpan, new BugWindow());
         }
 
         // This is called on a background thread.
         public Task<QuickInfoItem> GetQuickInfoItemAsync(IAsyncQuickInfoSession session, CancellationToken _) //XYZZY NEW
         {
-            //MyTools.Output_INFO(string.Format("{0}:GetQuickInfoItemAsync", this.ToString())); logging here bricks the app
+            MyTools.Output_INFO(string.Format("{0}:GetQuickInfoItemAsync", this.ToString()));
 
             var triggerPoint = session.GetTriggerPoint(this._textBuffer.CurrentSnapshot);
+
             if (triggerPoint != null)
             {
                 var line = triggerPoint.Value.GetContainingLine();
-                var lineSpan = this._textBuffer.CurrentSnapshot.CreateTrackingSpan(line.Extent, SpanTrackingMode.EdgeInclusive);
+                var applicableToSpan = this._textBuffer.CurrentSnapshot.CreateTrackingSpan(line.Extent, SpanTrackingMode.EdgeInclusive);
 
-                return Task<QuickInfoItem>.Factory.StartNew(() => this.RunOnUI(session, lineSpan), CancellationToken.None, TaskCreationOptions.None, this._uiScheduler);
+                return Task<QuickInfoItem>.Factory.StartNew(() => this.RunOnUI(applicableToSpan), CancellationToken.None, TaskCreationOptions.None, this._uiScheduler);
             }
             return Task.FromResult<QuickInfoItem>(null);
         }
@@ -52,6 +53,20 @@ namespace QuickInfo.VsixBug
             MyTools.Output_INFO(string.Format("{0}:AugmentQuickInfoSession", this.ToString()));
             applicableToSpan = null;
             var triggerPoint = session.GetTriggerPoint(this._textBuffer.CurrentSnapshot);
+
+            session.Recalculated += (o, i) =>
+            {
+                MyTools.Output_INFO(string.Format("{0}:Session_Recalculated", this.ToString()));
+            };
+            session.PresenterChanged += (o, i) =>
+            {
+                MyTools.Output_INFO(string.Format("{0}:Session_PresenterChanged", this.ToString()));
+            };
+            session.ApplicableToSpanChanged += (o, i) =>
+            {
+                MyTools.Output_INFO(string.Format("{0}:Session_ApplicableToSpanChanged", this.ToString()));
+            };
+
             if (triggerPoint != null)
             {
                 var line = triggerPoint.Value.GetContainingLine();
