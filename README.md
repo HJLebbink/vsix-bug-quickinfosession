@@ -1,15 +1,24 @@
 # vsix-bug-quickinfosession
-Simple VSIX project for VS2015/2017/2019 that sports an annoying bug that stall some important features in [AsmDude](https://github.com/HJLebbink/asm-dude) for almost 2 years.
+Simple VSIX project for VS2015/2017/2019 that sports an annoying bug that stalls some important features in [AsmDude](https://github.com/HJLebbink/asm-dude) for almost 2 years.
+
+This minimal extension creates a filetype with extension .xyz. If you run (debug) this extension and open a (text) file with extension .xyz, hovering the mouse over any word will show a tooltips with the described bug. I tested this extension with VS2017 15.7.4 and VS2019 16.3.0. For convenience a dedicated output window will be opened with some logging from this extension.
+
+I you have any questions, don't hesitate to ask me.
 
 Bug behaviour when using QuickInfo Tooltips:
 
-![tooltip-jumps](https://github.com/HJLebbink/vsix-bug-quickinfosession/blob/master/Images/window_moves.gif?raw=true "Tooltip Moves")
+## BUG 2
+
+![tooltip-jumps](https://github.com/HJLebbink/vsix-bug-quickinfosession/blob/master/Images/bug2-copy.gif?raw=true "Wrong source for Ctrl+C")
+
+(Note: selecting the word 'clipboard' does not show up in the gif, but the word is selected with a left mouse double click, and then copied with Ctrl+C. Pasting on line 6 is done with Ctrl+V)
+
+
+## BUG 1
+
+![tooltip-jumps](https://github.com/HJLebbink/vsix-bug-quickinfosession/blob/master/Images/bug1-jumping.gif?raw=true "Tooltip Moves")
 
 See Issue [here](https://github.com/Microsoft/vs-editor-api/issues/11).
-
-This minimal extension creates a filetype with extension .xyz. If you run (debug) this extension and open a (text) file with extension .xyz, hovering the mouse over any word will show a tooltips with the described bug. I tested this extension with VS2017 15.7.4 and VS2019 16.2.0. For convenience a dedicated output window will be opened with some logging from this extension.
-
-I you have any questions, don't hesitate to ask me.
 
 ## Previous use of this Project
 This project has also been used to describe other bugs, but these bugs seem resolved in VS 15.7.4
