@@ -92,7 +92,7 @@ namespace VsixBug.QuickInfo
         protected override Size MeasureOverride(Size constraint)
         {
             var result = base.MeasureOverride(constraint);
-            if (true)
+            if (false)
             {
                 Point locationFromScreen = this.MainWindow.PointToScreen(new Point(0, 0));
                 PresentationSource source = PresentationSource.FromVisual(this);
