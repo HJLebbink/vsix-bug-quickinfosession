@@ -9,22 +9,7 @@
              MinWidth="200"
              MinHeight="20"
              Focusable="True">
-    <Expander x:Name="MyExpander" IsExpanded="False">Bla</Expander>
-    <!--
-    <UserControl.Resources>
-        <Style x:Key="ExpanderHeader" TargetType="{x:Type TextBlock}">
-            <Setter Property="Height" Value="22" />
-            <Setter Property="Margin" Value="21,0,0,0" />
-            <Setter Property="Padding" Value="9,3,0,0" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="VerticalAlignment" Value="Top" />
-        </Style>
-    </UserControl.Resources>
-    <Grid>
-        <Expander>
-            <TextBlock Text="I am some content. I have disowned my default header." Margin="10,5" />
-        </Expander>
-        <TextBlock Text="I'm filling in for the default header. You'll like me better anyway." Style="{StaticResource ResourceKey=ExpanderHeader}"/>
-    </Grid>
-    -->
+    <Expander x:Name="MyExpander" Focusable="True" IsExpanded="True">
+        <TextBox Focusable="True">Copy this text to clipboard</TextBox>
+    </Expander>
 </UserControl>

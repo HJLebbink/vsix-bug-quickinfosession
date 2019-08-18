@@ -80,6 +80,7 @@
     <Compile Include="VsixBugPackage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".editorconfig" />
     <None Include="app.config" />
     <None Include="Resources\data.xyz">
       <SubType>Component</SubType>
