@@ -7,14 +7,14 @@ I you have any questions, don't hesitate to ask me.
 
 Bug behaviour when using QuickInfo Tooltips:
 
-## BUG 2
+## BUG 2: Wrong Source for Ctrl+C
 
 ![tooltip-jumps](https://github.com/HJLebbink/vsix-bug-quickinfosession/blob/master/Images/bug2-copy.gif?raw=true "Wrong source for Ctrl+C")
 
 (Note: selecting the word 'clipboard' does not show up in the gif, but the word is selected with a left mouse double click, and then copied with Ctrl+C. Pasting on line 6 is done with Ctrl+V)
 
 
-## BUG 1
+## BUG 1: Redraw of window at position of mouse
 
 ![tooltip-jumps](https://github.com/HJLebbink/vsix-bug-quickinfosession/blob/master/Images/bug1-jumping.gif?raw=true "Tooltip Moves")
 
